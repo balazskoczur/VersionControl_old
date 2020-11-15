@@ -101,6 +101,16 @@ public IToyFactory Factory
         {
             Factory = new BallFactory();
         }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var button3 = (Button)sender;
+            var colorPicker = new ColorDialog();
+
+            colorPicker.Color = button3.BackColor;
+            if (colorPicker.ShowDialog() != DialogResult.OK)
+                return;
+            button3.BackColor = colorPicker.Color;
+        }
 
     }
 }
