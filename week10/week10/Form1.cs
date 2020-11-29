@@ -25,6 +25,8 @@ namespace week10
 
 
         Brain winnerBrain = null;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -60,13 +62,15 @@ namespace week10
 
 
             var winners = from p in topPerformers
-                          where p.IsWinner
+                          where !p.IsWinner
                           select p;
             if (winners.Count() > 0)
             {
+                button1.Visible = true;
                 winnerBrain = winners.FirstOrDefault().Brain.Clone();
                 gc.GameOver -= Gc_GameOver;
                 return;
+
             }
 
 
