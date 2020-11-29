@@ -21,6 +21,9 @@ namespace week10
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+
+
+
         Brain winnerBrain = null;
         public Form1()
         {
@@ -40,10 +43,7 @@ namespace week10
             }
             gc.Start();
 
-            var playerList = from p in gc.GetCurrentPlayers()
-                             orderby p.GetFitness() descending
-                             select p;
-            var topPerformers = playerList.Take(populationSize / 2).ToList();
+
         }
 
         private void Gc_GameOver(object sender)
@@ -52,6 +52,11 @@ namespace week10
             label1.Text = string.Format(
                 "{0}. generáció",
                 generation);
+
+            var playerList = from p in gc.GetCurrentPlayers()
+                             orderby p.GetFitness() descending
+                             select p;
+            var topPerformers = playerList.Take(populationSize / 2).ToList();
 
 
             var winners = from p in topPerformers
@@ -81,6 +86,14 @@ namespace week10
             }
             gc.Start();
         }
-    
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
+        }
     }
 }
